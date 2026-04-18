@@ -1,117 +1,259 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to PrynceIndiv</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DAPAT TAMA Voting System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(120deg, #4f8cff, #a6e1fa);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        color: #fff;
+      }
+
+      .wrapper {
+        width: 100%;
+        max-width: 900px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 50px;
+        animation: slideDown 0.8s ease-out;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .logo {
+        width: 70px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .logo-text h2 {
+        font-family: "Poppins", sans-serif;
+        color: #fff;
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: 1px;
+      }
+
+      h1 {
+        font-family: "Poppins", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+      }
+
+      .tagline {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 45px 35px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        animation: slideUp 0.8s ease-out;
+      }
+
+      .card h2 {
+        font-family: "Poppins", sans-serif;
+        color: #333;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        margin-top: 0;
+      }
+
+      .card p {
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+      }
+
+      a.btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 15px 20px;
+        border-radius: 12px;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+      }
+
+      a.btn.primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+      }
+
+      a.btn.primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+      }
+
+      a.btn.secondary {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(245, 87, 108, 0.2);
+      }
+
+      a.btn.secondary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(245, 87, 108, 0.3);
+      }
+
+      .divider {
+        text-align: center;
+        margin: 25px 0;
+        color: #ddd;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+      }
+
+      .secondary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 25px;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 40px;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 0.9rem;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
         }
-        .container {
-            background: #fff;
-            padding: 3rem 2rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
         h1 {
-            margin-bottom: 1rem;
-            color: #4f8cff;
+          font-size: 2rem;
         }
-        p {
-            color: #333;
-            margin-bottom: 2rem;
+
+        .card {
+          padding: 30px 20px;
         }
-        .cta-btn {
-            background: #4f8cff;
-            color: #fff;
-            padding: 0.75rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
+
+        .card h2 {
+          font-size: 1.6rem;
         }
-        .cta-btn:hover {
-            background: #356ac3;
+
+        .logo-container {
+          flex-direction: column;
+          gap: 10px;
         }
+
+        .grid,
+        .secondary-grid {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <header style="margin-bottom: 2rem;">
-            <img src="Logo.jpg" alt="Logo" style="width:60px;height:60px;border-radius:50%;box-shadow:0 2px 8px rgba(79,140,255,0.2);margin-bottom:1rem;">
-            <h1 style="margin:0;color:#4f8cff;font-size:2rem;letter-spacing:1px;">Welcome to Voting System</h1>
-            <p style="margin:0.5rem 0 0;color:#5a6b7b;font-size:1.05rem;">Empowering your voice, shaping our future</p>
-        
-        
-        <div id="quote-slider" style="min-height: 70px;">
-            <blockquote class="quote-slide active">
-                "Smart decisions today, a better tomorrow."
-            </blockquote>
-            <blockquote class="quote-slide">
-                "A single vote can spark a wave of change."
-            </blockquote>
-            <blockquote class="quote-slide">
-                "Your vote is your power—use it responsibly."
-            </blockquote>
-            <blockquote class="quote-slide">
-                "Shape your destiny—vote with purpose and care."
-            <blockquote class="quote-slide">
-                "Vote wisely and smart—your choice shapes the future"
-            <blockquote class="quote-slide">
-                "Every vote is a voice—make yours count.."
-            </blockquote>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <div class="logo-container">
+          <div class="logo">✓</div>
+          <div class="logo-text">
+            <h2>DAPAT TAMA</h2>
+          </div>
         </div>
-        <a href="login.html"><button class="cta-btn"> User </button></a>
-        <a href="admin-login.html"><button class="cta-btn" style="background:#2d3a4a;margin-top:1rem;">Admin </button></a>
+        <h1>Voting System</h1>
+        <p class="tagline">Secure • Transparent • Democratic</p>
+      </header>
+
+      <main class="card">
+        <h2>Welcome to DAPAT TAMA</h2>
+        <p>
+          Your trusted platform for secure, transparent, and democratic voting.
+          Select your role below to proceed to your portal.
+        </p>
+
+        <div class="grid">
+          <a class="btn primary" href="/login">🗳️ Vote</a>
+          <a class="btn primary" href="/home">📋 User Portal</a>
+          <a class="btn secondary" href="/admin/login">🔐 Admin Login</a>
+          <a class="btn secondary" href="/admin/dashboard">📊 Dashboard</a>
+        </div>
+        <div class="divider">━━━━━━━━━━━━━━</div>
+
+        <p style="text-align: center; color: #999; font-size: 0.95rem">
+          Need help? Contact system support for assistance.
+        </p>
+      </main>
+
+      <footer>
+        <p>DAPAT TAMA © 2026 | Secure Election Management System</p>
+      </footer>
     </div>
-    <style>
-        #quote-slider {
-            position: relative;
-            overflow: hidden;
-        }
-        .quote-slide {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            opacity: 0;
-            transform: translateX(40px);
-            transition: opacity 0.6s, transform 0.6s;
-            font-size: 1.3rem;
-            font-style: italic;
-            color: #2d3a4a;
-            border-left: 4px solid #4f8cff;
-            margin: 1.5em 0;
-            padding: 0.5em 1em;
-            background: #f4f8fb;
-            box-sizing: border-box;
-        }
-        .quote-slide.active {
-            opacity: 1;
-            transform: translateX(0);
-            position: relative;
-        }
-    </style>
-    <script>
-        const quotes = document.querySelectorAll('.quote-slide');
-        let current = 0;
-        setInterval(() => {
-            quotes[current].classList.remove('active');
-            current = (current + 1) % quotes.length;
-            quotes[current].classList.add('active');
-        }, 3000);
-    </script>
-</body>
+  </body>
 </html>
