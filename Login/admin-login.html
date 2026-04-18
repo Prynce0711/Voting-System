@@ -2,131 +2,408 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Admin Login & Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login - DAPAT TAMA</title>
+    <meta name="description" content="Admin portal login for the DAPAT TAMA Voting System." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      :root {
+        --blue-900: #0a1628;
+        --blue-800: #0d2137;
+        --blue-700: #0e3a6e;
+        --blue-600: #0d47a1;
+        --blue-500: #1565c0;
+        --blue-400: #1e88e5;
+        --red-700: #b71c1c;
+        --red-600: #c62828;
+        --red-500: #e53935;
+        --red-400: #ef5350;
+        --gold-500: #f9a825;
+        --gold-400: #fbc02d;
+        --gold-300: #fdd835;
+        --white: #ffffff;
+        --gray-400: #94a3b8;
+        --gray-600: #475569;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: Arial, sans-serif;
-        background: #f4f4f4;
+        font-family: "Inter", sans-serif;
+        background: var(--blue-900);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
       }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background:
+          radial-gradient(ellipse at 30% 20%, rgba(198, 40, 40, 0.2) 0%, transparent 50%),
+          radial-gradient(ellipse at 70% 80%, rgba(13, 71, 161, 0.2) 0%, transparent 50%),
+          radial-gradient(ellipse at 50% 50%, rgba(249, 168, 37, 0.06) 0%, transparent 50%);
+        animation: bgShift 20s ease-in-out infinite;
+        z-index: 0;
+      }
+
+      @keyframes bgShift {
+        0%, 100% { transform: translate(0, 0); }
+        33% { transform: translate(-2%, 1%); }
+        66% { transform: translate(2%, -1%); }
+      }
+
       .container {
-        max-width: 400px;
-        margin: 60px auto;
-        background: #fff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 48px 40px;
+        box-shadow:
+          0 24px 64px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
+        max-width: 440px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+        animation: fadeSlideUp 0.7s ease-out;
       }
-      h2 {
+
+      /* ── Logo ── */
+      .logo-section {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 32px;
       }
-      .tab {
+
+      .logo-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, var(--red-600), var(--red-500));
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin-bottom: 12px;
+        box-shadow: 0 8px 24px rgba(198, 40, 40, 0.4);
+        color: var(--white);
+      }
+
+      .logo-section h1 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 4px;
+      }
+
+      .logo-section p {
+        color: var(--gray-400);
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .admin-badge {
+        display: inline-block;
+        padding: 4px 14px;
+        border-radius: 20px;
+        background: rgba(198, 40, 40, 0.15);
+        border: 1px solid rgba(198, 40, 40, 0.3);
+        color: var(--red-400);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 10px;
+      }
+
+      /* ── Flag accent ── */
+      .flag-accent {
         display: flex;
         justify-content: center;
-        margin-bottom: 20px;
+        gap: 4px;
+        margin-bottom: 28px;
       }
+
+      .flag-accent span {
+        width: 20px;
+        height: 3px;
+        border-radius: 2px;
+      }
+
+      .flag-accent .fb { background: var(--blue-500); }
+      .flag-accent .fr { background: var(--red-500); }
+      .flag-accent .fy { background: var(--gold-400); }
+
+      /* ── Tabs ── */
+      .tab {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 28px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 12px;
+        padding: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
       .tab button {
         flex: 1;
-        padding: 10px;
+        padding: 12px;
         cursor: pointer;
         border: none;
-        background: #eee;
+        background: transparent;
+        color: var(--gray-400);
+        font-family: "Poppins", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: all 0.3s ease;
       }
+
       .tab button.active {
-        background: #007bff;
-        color: #fff;
+        background: linear-gradient(135deg, var(--red-600), var(--red-500));
+        color: var(--white);
+        box-shadow: 0 4px 16px rgba(198, 40, 40, 0.3);
       }
+
+      .tab button:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--white);
+      }
+
+      /* ── Forms ── */
       form {
         display: none;
-        max-width: 400px;
-        margin: 0 auto;
-        background: #fff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
+
       form.active {
         display: block;
       }
-      label {
-        display: block;
-        margin-bottom: 5px;
+
+      .form-group {
+        margin-bottom: 16px;
+        text-align: left;
       }
+
+      .form-group label {
+        display: block;
+        color: var(--gray-400);
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
       input[type="text"],
       input[type="password"],
       input[type="email"] {
-        width: 90%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--white);
+        font-family: "Inter", sans-serif;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        outline: none;
       }
+
+      input::placeholder {
+        color: var(--gray-400);
+        opacity: 0.6;
+      }
+
+      input:focus {
+        border-color: var(--red-400);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.12);
+      }
+
+      /* ── Submit Buttons ── */
       button[type="submit"] {
         width: 100%;
-        padding: 10px;
-        background: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
+        padding: 15px;
+        background: linear-gradient(135deg, var(--red-600), var(--red-500));
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
         cursor: pointer;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 8px 24px rgba(198, 40, 40, 0.35);
+        margin-top: 8px;
+        position: relative;
+        overflow: hidden;
       }
+
+      button[type="submit"]::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+        transition: left 0.5s ease;
+      }
+
+      button[type="submit"]:hover::before {
+        left: 100%;
+      }
+
       button[type="submit"]:hover {
-        background: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(198, 40, 40, 0.5);
       }
+
+      /* ── Back link ── */
+      .back-section {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--gray-400);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .back-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+      }
+
+      /* ── Messages ── */
       .message {
         text-align: center;
-        margin-top: 10px;
-        color: red;
+        margin-top: 14px;
+        font-size: 0.88rem;
+        padding: 10px;
+        border-radius: 8px;
+        min-height: 0;
+      }
+
+      .message:not(:empty) {
+        padding: 10px;
+      }
+
+      .message.error {
+        color: var(--red-400);
+        background: rgba(229, 57, 53, 0.1);
+        border: 1px solid rgba(229, 57, 53, 0.2);
+      }
+
+      .message.success {
+        color: #4caf50;
+        background: rgba(76, 175, 80, 0.1);
+        border: 1px solid rgba(76, 175, 80, 0.2);
+      }
+
+      /* ── Animations ── */
+      @keyframes fadeSlideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 480px) {
+        .container { padding: 32px 24px; }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h2>Admin Portal</h2>
+      <div class="logo-section">
+        <div class="logo-icon">🔐</div>
+        <h1>DAPAT TAMA</h1>
+        <p>Voting System</p>
+        <div class="admin-badge">Admin Portal</div>
+      </div>
+
+      <div class="flag-accent">
+        <span class="fb"></span>
+        <span class="fr"></span>
+        <span class="fy"></span>
+      </div>
+
       <div class="tab">
         <button id="loginTab" class="active" onclick="showForm('login')">
-          Login
+          Sign In
         </button>
         <button id="registerTab" onclick="showForm('register')">
           Register
         </button>
       </div>
+
       <form id="loginForm" class="active" autocomplete="off">
-        <label for="admin-username">Username</label>
-        <input type="text" id="admin-username" name="username" required />
-        <label for="admin-password">Password</label>
-        <input type="password" id="admin-password" name="password" required />
-        <button type="submit">Login</button>
+        <div class="form-group">
+          <label for="admin-username">Username</label>
+          <input type="text" id="admin-username" name="username" placeholder="Enter admin username" required />
+        </div>
+        <div class="form-group">
+          <label for="admin-password">Password</label>
+          <input type="password" id="admin-password" name="password" placeholder="Enter password" required />
+        </div>
+        <button type="submit">Sign In</button>
         <div id="loginMsg" class="message"></div>
-        <div style="text-align: center; margin-top: 20px">
-          <a
-            href="/"
-            style="
-              display: inline-block;
-              padding: 10px 20px;
-              background: #6c757d;
-              color: #fff;
-              border-radius: 4px;
-              text-decoration: none;
-            "
-            >Back to Home</a
-          >
+        <div class="back-section">
+          <a class="back-link" href="/">← Back to Home</a>
         </div>
       </form>
+
       <form id="registerForm" autocomplete="off">
-        <label for="reg-username">Username</label>
-        <input type="text" id="reg-username" name="username" required />
-        <label for="reg-email">Email</label>
-        <input type="email" id="reg-email" name="email" required />
-        <label for="reg-password">Password</label>
-        <input type="password" id="reg-password" name="password" required />
-        <label for="reg-confirm">Confirm Password</label>
-        <input type="password" id="reg-confirm" name="confirm" required />
-        <button type="submit">Register</button>
+        <div class="form-group">
+          <label for="reg-username">Username</label>
+          <input type="text" id="reg-username" name="username" placeholder="Choose a username" required />
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email</label>
+          <input type="email" id="reg-email" name="email" placeholder="Enter your email" required />
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Password</label>
+          <input type="password" id="reg-password" name="password" placeholder="Create a password" required />
+        </div>
+        <div class="form-group">
+          <label for="reg-confirm">Confirm Password</label>
+          <input type="password" id="reg-confirm" name="confirm" placeholder="Confirm your password" required />
+        </div>
+        <button type="submit">Create Admin Account</button>
         <div id="registerMsg" class="message"></div>
       </form>
     </div>
+
     <script>
       function showForm(form) {
         document.getElementById("loginForm").classList.remove("active");
@@ -151,6 +428,7 @@
         const password = document.getElementById("admin-password").value;
         const msg = document.getElementById("loginMsg");
         msg.textContent = "";
+        msg.className = "message";
         try {
           const response = await fetch("/api/admin/login", {
             method: "POST",
@@ -159,16 +437,15 @@
           });
           const result = await response.json();
           if (response.ok) {
-            msg.style.color = "green";
+            msg.className = "message success";
             msg.textContent = "Login successful!";
-            // Redirect to admin dashboard if you have one
             window.location.href = "/admin/dashboard";
           } else {
-            msg.style.color = "red";
+            msg.className = "message error";
             msg.textContent = result.message || "Login failed!";
           }
         } catch (err) {
-          msg.style.color = "red";
+          msg.className = "message error";
           msg.textContent = "Server error!";
         }
       };
@@ -182,7 +459,9 @@
         const confirm = document.getElementById("reg-confirm").value;
         const msg = document.getElementById("registerMsg");
         msg.textContent = "";
+        msg.className = "message";
         if (password !== confirm) {
+          msg.className = "message error";
           msg.textContent = "Passwords do not match!";
           return;
         }
@@ -194,18 +473,18 @@
           });
           const result = await response.json();
           if (response.ok) {
-            msg.style.color = "green";
+            msg.className = "message success";
             msg.textContent = "Registration successful! You can now log in.";
             setTimeout(() => {
               showForm("login");
               msg.textContent = "";
             }, 1500);
           } else {
-            msg.style.color = "red";
+            msg.className = "message error";
             msg.textContent = result.message || "Registration failed!";
           }
         } catch (err) {
-          msg.style.color = "red";
+          msg.className = "message error";
           msg.textContent = "Server error!";
         }
       };

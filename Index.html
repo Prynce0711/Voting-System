@@ -4,13 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DAPAT TAMA Voting System</title>
+    <meta
+      name="description"
+      content="DAPAT TAMA - Secure, transparent, and democratic online voting system for Philippine elections."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&family=Lato:wght@300;400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
+      :root {
+        --blue-900: #0a1628;
+        --blue-800: #0d2137;
+        --blue-700: #0e3a6e;
+        --blue-600: #0d47a1;
+        --blue-500: #1565c0;
+        --blue-400: #1e88e5;
+        --red-700: #b71c1c;
+        --red-600: #c62828;
+        --red-500: #e53935;
+        --red-400: #ef5350;
+        --gold-500: #f9a825;
+        --gold-400: #fbc02d;
+        --gold-300: #fdd835;
+        --gold-200: #ffee58;
+        --white: #ffffff;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-400: #94a3b8;
+        --gray-600: #475569;
+        --gray-800: #1e293b;
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -18,163 +46,319 @@
       }
 
       body {
-        font-family: "Lato", sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: "Inter", sans-serif;
+        background: var(--blue-900);
         min-height: 100vh;
         display: grid;
         place-items: center;
         padding: 20px;
-        color: #fff;
+        color: var(--white);
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background:
+          radial-gradient(
+            ellipse at 20% 20%,
+            rgba(13, 71, 161, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(198, 40, 40, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 50% 50%,
+            rgba(249, 168, 37, 0.08) 0%,
+            transparent 50%
+          );
+        animation: bgShift 20s ease-in-out infinite;
+        z-index: 0;
+      }
+
+      @keyframes bgShift {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        33% {
+          transform: translate(-2%, 1%);
+        }
+        66% {
+          transform: translate(2%, -1%);
+        }
       }
 
       .wrapper {
         width: 100%;
-        max-width: 900px;
+        max-width: 920px;
+        position: relative;
+        z-index: 1;
       }
 
+      /* ── Header ── */
       header {
         text-align: center;
-        margin-bottom: 50px;
-        animation: slideDown 0.8s ease-out;
+        margin-bottom: 48px;
+        animation: fadeSlideDown 0.8s ease-out;
       }
 
       .logo-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 15px;
-        margin-bottom: 20px;
+        gap: 16px;
+        margin-bottom: 24px;
       }
 
       .logo {
-        width: 70px;
-        height: 70px;
-        background: rgba(255, 255, 255, 0.95);
+        width: 72px;
+        height: 72px;
+        background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
         border-radius: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 35px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        font-size: 34px;
+        color: var(--blue-900);
+        box-shadow:
+          0 8px 32px rgba(249, 168, 37, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.08) rotate(-3deg);
+        box-shadow: 0 12px 40px rgba(249, 168, 37, 0.5);
       }
 
       .logo-text h2 {
         font-family: "Poppins", sans-serif;
-        color: #fff;
-        font-size: 28px;
-        font-weight: 700;
-        margin: 0;
-        letter-spacing: 1px;
+        color: var(--white);
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        background: linear-gradient(135deg, var(--white), var(--gold-300));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
       h1 {
         font-family: "Poppins", sans-serif;
-        font-size: 2.5rem;
+        font-size: 2.4rem;
         font-weight: 700;
-        margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+        margin-bottom: 8px;
+        color: var(--white);
       }
 
       .tagline {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1.1rem;
-        font-weight: 300;
-        letter-spacing: 0.5px;
+        color: var(--gray-400);
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: 3px;
+        text-transform: uppercase;
       }
 
+      .tagline span {
+        color: var(--gold-400);
+      }
+
+      /* ── Card ── */
       .card {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 20px;
-        padding: 45px 35px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        animation: slideUp 0.8s ease-out;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 48px 40px;
+        box-shadow:
+          0 24px 64px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
+        animation: fadeSlideUp 0.8s ease-out 0.15s both;
       }
 
       .card h2 {
         font-family: "Poppins", sans-serif;
-        color: #333;
-        font-size: 2rem;
-        margin-bottom: 15px;
-        margin-top: 0;
+        color: var(--white);
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+        font-weight: 700;
       }
 
       .card p {
-        color: #666;
+        color: var(--gray-400);
         font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 30px;
+        line-height: 1.7;
+        margin-bottom: 32px;
       }
 
+      /* ── Buttons Grid ── */
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
       }
 
       a.btn {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 10px;
         text-decoration: none;
         font-weight: 600;
-        padding: 15px 20px;
-        border-radius: 12px;
+        padding: 16px 20px;
+        border-radius: 14px;
         font-family: "Poppins", sans-serif;
-        transition: all 0.3s ease;
-        font-size: 1rem;
+        font-size: 0.95rem;
         border: none;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      a.btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.12),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      a.btn:hover::before {
+        left: 100%;
       }
 
       a.btn.primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: #fff;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
+        color: var(--white);
+        box-shadow: 0 8px 24px rgba(13, 71, 161, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       a.btn.primary:hover {
         transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 14px 36px rgba(13, 71, 161, 0.55);
       }
 
       a.btn.secondary {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        color: #fff;
-        box-shadow: 0 10px 30px rgba(245, 87, 108, 0.2);
+        background: linear-gradient(135deg, var(--red-600), var(--red-500));
+        color: var(--white);
+        box-shadow: 0 8px 24px rgba(198, 40, 40, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       a.btn.secondary:hover {
         transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(245, 87, 108, 0.3);
+        box-shadow: 0 14px 36px rgba(198, 40, 40, 0.5);
       }
 
+      /* ── Divider ── */
       .divider {
         text-align: center;
-        margin: 25px 0;
-        color: #ddd;
-        font-size: 0.8rem;
-        letter-spacing: 2px;
+        margin: 28px 0;
+        position: relative;
       }
 
-      .secondary-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
-        margin-top: 25px;
+      .divider::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(249, 168, 37, 0.3),
+          transparent
+        );
       }
 
-      footer {
+      .divider span {
+        background: var(--blue-900);
+        padding: 0 16px;
+        position: relative;
+        color: var(--gold-400);
+        font-size: 0.75rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      .help-text {
         text-align: center;
-        margin-top: 40px;
-        color: rgba(255, 255, 255, 0.75);
+        color: var(--gray-400);
         font-size: 0.9rem;
       }
 
-      @keyframes slideDown {
+      .help-text a {
+        color: var(--gold-400);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .help-text a:hover {
+        color: var(--gold-300);
+      }
+
+      /* ── Footer ── */
+      footer {
+        text-align: center;
+        margin-top: 40px;
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+      }
+
+      footer .flag-bar {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        margin-bottom: 12px;
+      }
+
+      footer .flag-bar span {
+        width: 24px;
+        height: 3px;
+        border-radius: 2px;
+      }
+
+      footer .flag-bar .fb {
+        background: var(--blue-500);
+      }
+      footer .flag-bar .fr {
+        background: var(--red-500);
+      }
+      footer .flag-bar .fy {
+        background: var(--gold-400);
+      }
+
+      /* ── Animations ── */
+      @keyframes fadeSlideDown {
         from {
           opacity: 0;
-          transform: translateY(-30px);
+          transform: translateY(-24px);
         }
         to {
           opacity: 1;
@@ -182,10 +366,10 @@
         }
       }
 
-      @keyframes slideUp {
+      @keyframes fadeSlideUp {
         from {
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(24px);
         }
         to {
           opacity: 1;
@@ -193,26 +377,22 @@
         }
       }
 
+      /* ── Responsive ── */
       @media (max-width: 768px) {
         h1 {
-          font-size: 2rem;
+          font-size: 1.8rem;
         }
-
         .card {
-          padding: 30px 20px;
+          padding: 32px 20px;
         }
-
         .card h2 {
-          font-size: 1.6rem;
+          font-size: 1.5rem;
         }
-
         .logo-container {
           flex-direction: column;
-          gap: 10px;
+          gap: 8px;
         }
-
-        .grid,
-        .secondary-grid {
+        .grid {
           grid-template-columns: 1fr;
         }
       }
@@ -228,7 +408,9 @@
           </div>
         </div>
         <h1>Voting System</h1>
-        <p class="tagline">Secure • Transparent • Democratic</p>
+        <p class="tagline">
+          Secure <span>•</span> Transparent <span>•</span> Democratic
+        </p>
       </header>
 
       <main class="card">
@@ -244,14 +426,20 @@
           <a class="btn secondary" href="/admin/login">🔐 Admin Login</a>
           <a class="btn secondary" href="/admin/dashboard">📊 Dashboard</a>
         </div>
-        <div class="divider">━━━━━━━━━━━━━━</div>
 
-        <p style="text-align: center; color: #999; font-size: 0.95rem">
-          Need help? Contact system support for assistance.
+        <div class="divider"><span>DAPAT TAMA</span></div>
+
+        <p class="help-text">
+          Need help? <a href="#">Contact system support</a> for assistance.
         </p>
       </main>
 
       <footer>
+        <div class="flag-bar">
+          <span class="fb"></span>
+          <span class="fr"></span>
+          <span class="fy"></span>
+        </div>
         <p>DAPAT TAMA © 2026 | Secure Election Management System</p>
       </footer>
     </div>

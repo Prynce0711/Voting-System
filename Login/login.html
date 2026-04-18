@@ -3,187 +3,520 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - PrynceIndiv</title>
+    <title>Login - DAPAT TAMA Voting System</title>
+    <meta name="description" content="Login to the DAPAT TAMA Voting System to cast your vote." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      body {
+      :root {
+        --blue-900: #0a1628;
+        --blue-800: #0d2137;
+        --blue-700: #0e3a6e;
+        --blue-600: #0d47a1;
+        --blue-500: #1565c0;
+        --blue-400: #1e88e5;
+        --red-700: #b71c1c;
+        --red-600: #c62828;
+        --red-500: #e53935;
+        --red-400: #ef5350;
+        --gold-500: #f9a825;
+        --gold-400: #fbc02d;
+        --gold-300: #fdd835;
+        --white: #ffffff;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-400: #94a3b8;
+        --gray-600: #475569;
+        --gray-800: #1e293b;
+      }
+
+      * {
         margin: 0;
         padding: 0;
-        font-family: "Segoe UI", Arial, sans-serif;
-        background: linear-gradient(120deg, #4f8cff, #a6e1fa);
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--blue-900);
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
       }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background:
+          radial-gradient(ellipse at 30% 20%, rgba(13, 71, 161, 0.25) 0%, transparent 50%),
+          radial-gradient(ellipse at 70% 80%, rgba(198, 40, 40, 0.12) 0%, transparent 50%),
+          radial-gradient(ellipse at 50% 50%, rgba(249, 168, 37, 0.06) 0%, transparent 50%);
+        animation: bgShift 20s ease-in-out infinite;
+        z-index: 0;
+      }
+
+      @keyframes bgShift {
+        0%, 100% { transform: translate(0, 0); }
+        33% { transform: translate(-2%, 1%); }
+        66% { transform: translate(2%, -1%); }
+      }
+
       .container {
-        background: #fff;
-        padding: 2rem 2rem;
-        border-radius: 16px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 48px 40px;
+        box-shadow:
+          0 24px 64px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
         text-align: center;
-        max-width: 350px;
+        max-width: 420px;
         width: 100%;
+        position: relative;
+        z-index: 1;
+        animation: fadeSlideUp 0.7s ease-out;
       }
-      input,
+
+      /* ── Logo ── */
+      .logo-section {
+        margin-bottom: 32px;
+      }
+
+      .logo-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, var(--gold-500), var(--gold-300));
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        margin-bottom: 12px;
+        box-shadow: 0 8px 24px rgba(249, 168, 37, 0.35);
+      }
+
+      .logo-section h1 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 4px;
+      }
+
+      .logo-section p {
+        color: var(--gray-400);
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      /* ── Form Headings ── */
+      h2 {
+        font-family: "Poppins", sans-serif;
+        color: var(--white);
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .form-subtitle {
+        color: var(--gray-400);
+        font-size: 0.9rem;
+        margin-bottom: 28px;
+      }
+
+      /* ── Form Controls ── */
+      .form-group {
+        margin-bottom: 16px;
+        text-align: left;
+      }
+
+      .form-group label {
+        display: block;
+        color: var(--gray-400);
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      input, select {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--white);
+        font-family: "Inter", sans-serif;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+
+      input::placeholder {
+        color: var(--gray-400);
+        opacity: 0.6;
+      }
+
+      input:focus, select:focus {
+        border-color: var(--blue-400);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.15);
+      }
+
       select {
-        width: 90%;
-        padding: 0.5rem;
-        margin: 0.5rem 0;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-      }
-      .btn {
-        background: #4f8cff;
-        color: #fff;
-        padding: 0.5rem 2rem;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
         cursor: pointer;
-        margin-top: 1rem;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
       }
-      .btn:hover {
-        background: #356ac3;
+
+      select option {
+        background: var(--blue-800);
+        color: var(--white);
       }
-      .hidden {
+
+      .password-wrapper {
+        position: relative;
+      }
+
+      .password-wrapper input {
+        padding-right: 60px;
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--gold-400);
+        font-size: 0.8rem;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: "Inter", sans-serif;
+        letter-spacing: 0.5px;
+        transition: color 0.2s;
+      }
+
+      .toggle-password:hover {
+        color: var(--gold-300);
+      }
+
+      /* ── Buttons ── */
+      .btn {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 12px;
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 8px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
+        color: var(--white);
+        box-shadow: 0 8px 24px rgba(13, 71, 161, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(13, 71, 161, 0.55);
+      }
+
+      /* ── Links ── */
+      .form-links {
+        margin-top: 24px;
+      }
+
+      .form-links p {
+        color: var(--gray-400);
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+
+      .form-links a {
+        color: var(--gold-400);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .form-links a:hover {
+        color: var(--gold-300);
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 16px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--gray-400);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .back-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+      }
+
+      /* ── Error / Success ── */
+      .error-msg {
+        color: var(--red-400);
+        margin-top: 12px;
+        font-size: 0.88rem;
         display: none;
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(229, 57, 53, 0.1);
+        border: 1px solid rgba(229, 57, 53, 0.2);
       }
+
       .voter-id {
-        margin-top: 1rem;
-        color: #4f8cff;
-        font-weight: bold;
+        margin-top: 12px;
+        color: var(--gold-400);
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(249, 168, 37, 0.08);
+        border: 1px solid rgba(249, 168, 37, 0.2);
+      }
+
+      .hidden { display: none; }
+
+      /* ── Divider ── */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 24px 0;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      }
+
+      .divider span {
+        color: var(--gray-400);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        white-space: nowrap;
+      }
+
+      /* ── Flag accent ── */
+      .flag-accent {
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+        margin-bottom: 28px;
+      }
+
+      .flag-accent span {
+        width: 20px;
+        height: 3px;
+        border-radius: 2px;
+      }
+
+      .flag-accent .fb { background: var(--blue-500); }
+      .flag-accent .fr { background: var(--red-500); }
+      .flag-accent .fy { background: var(--gold-400); }
+
+      /* ── Animations ── */
+      @keyframes fadeSlideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 480px) {
+        .container { padding: 32px 24px; }
+        h2 { font-size: 1.4rem; }
       }
     </style>
   </head>
   <body>
     <div class="container">
+      <div class="logo-section">
+        <div class="logo-icon">✓</div>
+        <h1>DAPAT TAMA</h1>
+        <p>Voting System</p>
+      </div>
+
+      <div class="flag-accent">
+        <span class="fb"></span>
+        <span class="fr"></span>
+        <span class="fy"></span>
+      </div>
+
       <div id="login-form">
-        <h2>Login</h2>
+        <h2>Welcome Back</h2>
+        <p class="form-subtitle">Sign in to cast your vote</p>
         <form id="loginForm">
-          <input
-            type="text"
-            id="login-username"
-            placeholder="Username"
-            required
-          /><br />
-          <div style="position: relative; display: inline-block; width: 90%">
+          <div class="form-group">
+            <label for="login-username">Username</label>
             <input
-              type="password"
-              id="login-password"
-              placeholder="Password"
+              type="text"
+              id="login-username"
+              placeholder="Enter your username"
               required
             />
-            <button
-              type="button"
-              id="togglePassword"
-              style="
-                position: absolute;
-                right: 5px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: none;
-                border: none;
-                cursor: pointer;
-                color: #4f8cff;
-                font-size: 0.9em;
-              "
-            >
-              Show
-            </button>
           </div>
-          <br />
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="login-password"
+                placeholder="Enter your password"
+                required
+              />
+              <button
+                type="button"
+                id="togglePassword"
+                class="toggle-password"
+              >
+                Show
+              </button>
+            </div>
+          </div>
 
-          <button type="submit" class="btn">Login</button>
+          <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
 
-        <p style="margin-top: 1rem">
-          Don't have an account?
-          <a
-            href="#"
-            onclick="showSignup()"
-            style="color: #4f8cff; text-decoration: none"
-            >Sign Up</a
-          >
-        </p>
-        <p style="margin-top: 1rem">
-          Forgot your password?
-          <a href="#" style="color: #4f8cff; text-decoration: none"
-            >Reset Password</a
-          >
-        </p>
+        <div class="form-links">
+          <p>
+            Don't have an account?
+            <a href="#" onclick="showSignup()">Sign Up</a>
+          </p>
+          <p>
+            Forgot your password?
+            <a href="#">Reset Password</a>
+          </p>
+        </div>
 
-        <a
-          href="/"
-          style="
-            display: inline-block;
-            padding: 10px 20px;
-            background: #6c757d;
-            color: #fff;
-            border-radius: 4px;
-            text-decoration: none;
-          "
-          >Back to Home</a
-        >
+        <div class="divider"><span>or</span></div>
 
-        <div
-          id="loginError"
-          style="color: red; margin-top: 10px; display: none"
-        ></div>
+        <a class="back-link" href="/">← Back to Home</a>
+
+        <div id="loginError" class="error-msg"></div>
       </div>
+
       <div id="signup-form" class="hidden">
-        <h2>Registration</h2>
-        <p style="margin-bottom: 1rem">
-          Please fill in the details below to create an account.
-        </p>
+        <h2>Create Account</h2>
+        <p class="form-subtitle">Register to participate in elections</p>
         <form id="signupForm">
-          <input
-            type="text"
-            id="signup-username"
-            placeholder="Username"
-            required
-          /><br />
+          <div class="form-group">
+            <label for="signup-username">Username</label>
+            <input
+              type="text"
+              id="signup-username"
+              placeholder="Choose a username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input
+              type="password"
+              id="signup-password"
+              placeholder="Create a password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="signup-fullname">Full Name</label>
+            <input
+              type="text"
+              id="signup-fullname"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="signup-address">Address</label>
+            <input
+              type="text"
+              id="signup-address"
+              placeholder="Enter your full address"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="signup-gender">Gender</label>
+            <select id="signup-gender" required>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
 
-          <input
-            type="password"
-            id="signup-password"
-            placeholder="Password"
-            required
-          /><br />
-
-          <input
-            type="text"
-            id="signup-fullname"
-            placeholder="Full Name"
-            required
-          /><br />
-          <input
-            type="text"
-            id="signup-address"
-            placeholder="Full Address"
-            required
-          /><br />
-          <select id="signup-gender" required>
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option></select
-          ><br />
-
-          <button type="submit" class="btn">Sign Up</button>
+          <button type="submit" class="btn btn-primary">Create Account</button>
         </form>
 
-        <p style="margin-top: 1rem">
-          Already have an account?
-          <a
-            href="#"
-            onclick="showLogin()"
-            style="color: #4f8cff; text-decoration: none"
-            >Login</a
-          >
-        </p>
+        <div class="form-links">
+          <p>
+            Already have an account?
+            <a href="#" onclick="showLogin()">Sign In</a>
+          </p>
+        </div>
         <div id="voterIdMsg" class="voter-id hidden"></div>
       </div>
     </div>
+
     <script>
       // Show/hide password toggle
       document.addEventListener("DOMContentLoaded", function () {
