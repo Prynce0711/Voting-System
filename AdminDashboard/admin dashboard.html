@@ -1,287 +1,816 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Admin Dashboard - Voting System</title>
+    <title>Admin Dashboard - DAPAT TAMA</title>
+    <meta name="description" content="Admin Dashboard for managing the DAPAT TAMA Voting System - manage voters, candidates, and settings." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      body {
-        background-color: #357ab8;
-        font-family: Arial, sans-serif;
-        color: #fff;
+      :root {
+        --blue-900: #0a1628;
+        --blue-800: #0d2137;
+        --blue-700: #0e3a6e;
+        --blue-600: #0d47a1;
+        --blue-500: #1565c0;
+        --blue-400: #1e88e5;
+        --red-700: #b71c1c;
+        --red-600: #c62828;
+        --red-500: #e53935;
+        --red-400: #ef5350;
+        --gold-500: #f9a825;
+        --gold-400: #fbc02d;
+        --gold-300: #fdd835;
+        --white: #ffffff;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-400: #94a3b8;
+        --gray-600: #475569;
+        --gray-800: #1e293b;
+      }
+
+      * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--blue-900);
+        min-height: 100vh;
+        color: var(--white);
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(ellipse at 20% 0%, rgba(198, 40, 40, 0.15) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 100%, rgba(13, 71, 161, 0.15) 0%, transparent 50%);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      /* ── Navbar ── */
       nav {
-        background-color: #245a91;
-        padding: 10px;
+        background: rgba(13, 33, 55, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 0 24px;
         display: flex;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
         gap: 10px;
+        padding: 12px 0;
+        margin-right: 24px;
       }
-      button {
-        background-color: #ffffff;
-        color: #245a91;
+
+      .nav-brand .brand-icon {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, var(--red-600), var(--red-500));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: var(--white);
+        box-shadow: 0 4px 12px rgba(198, 40, 40, 0.35);
+      }
+
+      .nav-brand span {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--white);
+        letter-spacing: 1px;
+      }
+
+      .nav-brand .admin-tag {
+        font-size: 0.6rem;
+        background: rgba(198, 40, 40, 0.2);
+        border: 1px solid rgba(198, 40, 40, 0.3);
+        color: var(--red-400);
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 4px;
+        flex: 1;
+      }
+
+      nav button {
+        background: transparent;
+        color: var(--gray-400);
         border: none;
-        padding: 8px 12px;
-        border-radius: 4px;
+        padding: 14px 18px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 500;
         cursor: pointer;
-        font-weight: bold;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
       }
-      button:hover {
-        background-color: #e6e6e6;
+
+      nav button:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--white);
       }
+
+      nav button.nav-active {
+        color: var(--gold-400);
+        background: rgba(249, 168, 37, 0.08);
+      }
+
+      nav button.nav-active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 2px;
+        background: var(--gold-400);
+        border-radius: 2px;
+      }
+
+      .nav-logout {
+        margin-left: auto;
+        background: rgba(198, 40, 40, 0.15) !important;
+        border: 1px solid rgba(198, 40, 40, 0.25) !important;
+        color: var(--red-400) !important;
+      }
+
+      .nav-logout:hover {
+        background: rgba(198, 40, 40, 0.25) !important;
+      }
+
+      /* ── Content ── */
+      .content {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 24px;
+        position: relative;
+        z-index: 1;
+      }
+
       .page {
         display: none;
-        padding: 20px;
+        animation: fadeIn 0.4s ease-out;
       }
-      .active {
+
+      .page.active {
         display: block;
       }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── Page Header ── */
+      .page-header {
+        margin-bottom: 28px;
+      }
+
+      .page-header h1 {
+        font-family: "Poppins", sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .page-header h1 .accent {
+        background: linear-gradient(135deg, var(--gold-400), var(--gold-300));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .page-header h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--white);
+      }
+
+      .page-header p {
+        color: var(--gray-400);
+        font-size: 0.95rem;
+      }
+
+      /* ── Cards / Panels ── */
+      .panel {
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        padding: 28px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      }
+
+      .panel h3 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: var(--gold-400);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .panel h3::before {
+        content: "";
+        width: 4px;
+        height: 20px;
+        background: linear-gradient(to bottom, var(--gold-400), var(--gold-500));
+        border-radius: 2px;
+      }
+
+      /* ── Tables ── */
       table {
         width: 100%;
-        background-color: #ffffff;
-        color: #000;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
       }
-      th,
-      td {
-        border: 1px solid #000;
-        border-collapse: collapse;
-        padding: 8px;
+
+      th {
+        background: rgba(13, 71, 161, 0.3);
+        color: var(--white);
+        padding: 14px 16px;
         text-align: left;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
-      form input {
-        padding: 6px;
-        width: 300px;
+
+      td {
+        padding: 12px 16px;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 0.92rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      tr:hover td {
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      /* ── Form Inputs ── */
+      td input[type="text"],
+      td input[type="email"],
+      td select {
+        width: 100%;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--white);
+        font-family: "Inter", sans-serif;
+        font-size: 0.88rem;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      td input:focus,
+      td select:focus {
+        border-color: var(--blue-400);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.15);
+      }
+
+      td select option {
+        background: var(--blue-800);
+        color: var(--white);
+      }
+
+      /* ── Action Buttons ── */
+      .action-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-right: 6px;
+      }
+
+      .btn-update {
+        background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
+        color: var(--white);
+        box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
+      }
+
+      .btn-update:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(13, 71, 161, 0.45);
+      }
+
+      .btn-delete {
+        background: rgba(198, 40, 40, 0.15);
+        color: var(--red-400);
+        border: 1px solid rgba(198, 40, 40, 0.25);
+      }
+
+      .btn-delete:hover {
+        background: rgba(198, 40, 40, 0.25);
+      }
+
+      .btn-remove {
+        background: rgba(198, 40, 40, 0.15);
+        color: var(--red-400);
+        border: 1px solid rgba(198, 40, 40, 0.25);
+      }
+
+      .btn-remove:hover {
+        background: rgba(198, 40, 40, 0.25);
+      }
+
+      .btn-add {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 12px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+        color: var(--blue-900);
+        box-shadow: 0 6px 20px rgba(249, 168, 37, 0.3);
+        margin-top: 16px;
+        transition: all 0.35s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-add::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .btn-add:hover::before {
+        left: 100%;
+      }
+
+      .btn-add:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(249, 168, 37, 0.45);
+      }
+
+      /* ── Settings Form ── */
+      .settings-form {
+        max-width: 500px;
+      }
+
+      .settings-form .form-group {
+        margin-bottom: 20px;
+      }
+
+      .settings-form label {
+        display: block;
+        color: var(--gray-400);
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .settings-form input {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--white);
+        font-family: "Inter", sans-serif;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        outline: none;
+      }
+
+      .settings-form input:focus {
+        border-color: var(--blue-400);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.15);
+      }
+
+      .btn-save {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 32px;
+        border: none;
+        border-radius: 12px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
+        color: var(--white);
+        box-shadow: 0 8px 24px rgba(13, 71, 161, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.35s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-save::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .btn-save:hover::before {
+        left: 100%;
+      }
+
+      .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(13, 71, 161, 0.5);
+      }
+
+      /* ── Dashboard Stats ── */
+      .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .dash-stat {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        padding: 24px;
+        text-align: center;
+        transition: all 0.35s ease;
+      }
+
+      .dash-stat:hover {
+        border-color: rgba(249, 168, 37, 0.2);
+        transform: translateY(-4px);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .dash-stat .icon {
+        font-size: 28px;
         margin-bottom: 10px;
       }
-      h1,
-      h2,
-      h3 {
-        color: #fff;
+
+      .dash-stat h4 {
+        font-family: "Poppins", sans-serif;
+        font-size: 0.9rem;
+        color: var(--white);
+        font-weight: 600;
+        margin-bottom: 4px;
       }
-      .action-btn {
-        margin-right: 5px;
+
+      .dash-stat p {
+        color: var(--gray-400);
+        font-size: 0.8rem;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 768px) {
+        nav { flex-wrap: wrap; padding: 12px 16px; }
+        .nav-brand { width: 100%; margin-right: 0; margin-bottom: 8px; }
+        .nav-links { width: 100%; overflow-x: auto; }
+        .nav-logout { margin-left: 0; }
+        .content { padding: 20px 16px; }
+        .dashboard-stats { grid-template-columns: 1fr; }
+        .page-header h1 { font-size: 1.6rem; }
+        td { padding: 8px 10px; font-size: 0.82rem; }
       }
     </style>
   </head>
   <body>
     <nav>
-      <button onclick="showPage('home')">Home</button>
-      <button onclick="showPage('voters')">Manage Voters</button>
-      <button onclick="showPage('candidates')">Manage Candidates</button>
-      <button onclick="showPage('settings')">Settings</button>
-      <button onclick="logout()">Logout</button>
+      <div class="nav-brand">
+        <div class="brand-icon">🔐</div>
+        <span>DAPAT TAMA</span>
+        <span class="admin-tag">Admin</span>
+      </div>
+      <div class="nav-links">
+        <button onclick="showPage('home')" class="nav-active" id="nav-home">🏠 Home</button>
+        <button onclick="showPage('voters')" id="nav-voters">👥 Voters</button>
+        <button onclick="showPage('candidates')" id="nav-candidates">🏆 Candidates</button>
+        <button onclick="showPage('settings')" id="nav-settings">⚙️ Settings</button>
+      </div>
+      <button class="nav-logout" onclick="logout()">🚪 Logout</button>
     </nav>
-    <div id="home" class="page active">
-      <h1>Welcome to the Voting System</h1>
-      <p>Select an option from the navigation bar.</p>
-    </div>
-    <div id="voters" class="page">
-      <h2>Manage Voters</h2>
-      <table id="votersTable">
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Full Name</th>
-            <th>Address</th>
-            <th>Gender</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
 
-    <script>
-      async function loadUsers() {
-        const response = await fetch("/api/users");
-        const users = await response.json();
-        const tbody = document.querySelector("#votersTable tbody");
-        tbody.innerHTML = "";
-        users.forEach((user) => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-      <td>${user.username}</td>
-      <td><input value="${user.fullname}" id="fullname-${user.id}"></td>
-      <td><input value="${user.address}" id="address-${user.id}"></td>
-      <td>
-        <select id="gender-${user.id}">
-          <option value="Male" ${user.gender === "Male" ? "selected" : ""}>Male</option>
-          <option value="Female" ${user.gender === "Female" ? "selected" : ""}>Female</option>
-          <option value="Other" ${user.gender === "Other" ? "selected" : ""}>Other</option>
-        </select>
-      </td>
-      <td>
-        <button onclick="updateUser(${user.id})">Update</button>
-        <button onclick="deleteUser(${user.id})">Delete</button>
-      </td>
-    `;
-          tbody.appendChild(tr);
-        });
-      }
+    <div class="content">
+      <div id="home" class="page active">
+        <div class="page-header">
+          <h1>Admin <span class="accent">Dashboard</span></h1>
+          <p>Manage your election system from one place</p>
+        </div>
 
-      async function updateUser(id) {
-        const fullname = document.getElementById(`fullname-${id}`).value;
-        const address = document.getElementById(`address-${id}`).value;
-        const gender = document.getElementById(`gender-${id}`).value;
+        <div class="dashboard-stats">
+          <div class="dash-stat">
+            <div class="icon">👥</div>
+            <h4>Manage Voters</h4>
+            <p>View and edit voter records</p>
+          </div>
+          <div class="dash-stat">
+            <div class="icon">🏆</div>
+            <h4>Manage Candidates</h4>
+            <p>Add or remove candidates</p>
+          </div>
+          <div class="dash-stat">
+            <div class="icon">⚙️</div>
+            <h4>Settings</h4>
+            <p>Update admin information</p>
+          </div>
+        </div>
+      </div>
 
-        const response = await fetch(`/api/users/${id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ fullname, address, gender }),
-        });
+      <div id="voters" class="page">
+        <div class="page-header">
+          <h2>Manage Voters</h2>
+          <p>View, update, and manage registered voter accounts</p>
+        </div>
+        <div class="panel">
+          <table id="votersTable">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Address</th>
+                <th>Gender</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
 
-        if (response.ok) {
-          alert("User updated!");
-          loadUsers();
-        } else {
-          alert("Failed to update user.");
-        }
-      }
-
-      async function deleteUser(id) {
-        if (!confirm("Delete this user?")) {
-          return;
-        }
-
-        const response = await fetch(`/api/users/${id}`, {
-          method: "DELETE",
-        });
-
-        if (response.ok) {
-          alert("User deleted!");
-          loadUsers();
-        } else {
-          alert("Failed to delete user.");
-        }
-      }
-    </script>
-
-    <div id="candidates" class="page">
-      <h2>Manage Candidates</h2>
-      <div id="candidatesContainer"></div>
-      <button onclick="promptAddCandidate()">Add Candidate</button>
-    </div>
-    <div id="settings" class="page">
-      <h2>Admin Settings</h2>
-      <form
-        onsubmit="
-          updateAdminInfo();
-          return false;
-        "
-      >
-        <label for="adminName">Admin Name:</label><br />
-        <input
-          type="text"
-          id="adminName"
-          name="adminName"
-          value="Admin"
-        /><br /><br />
-        <label for="adminEmail">Email:</label><br />
-        <input
-          type="email"
-          id="adminEmail"
-          name="adminEmail"
-          value="admin@example.com"
-        /><br /><br />
-        <button type="submit">Update Info</button>
-      </form>
-    </div>
-    <script>
-      function showPage(pageId) {
-        document
-          .querySelectorAll(".page")
-          .forEach((p) => p.classList.remove("active"));
-        document.getElementById(pageId).classList.add("active");
-        if (pageId === "voters") loadUsers();
-        if (pageId === "candidates") loadCandidates();
-      }
-
-      // --- CANDIDATE MANAGEMENT ---
-      async function loadCandidates() {
-        const response = await fetch("/api/candidates");
-        const data = await response.json();
-        const container = document.getElementById("candidatesContainer");
-        container.innerHTML = "";
-        const positions = [...new Set(data.map((c) => c.position))];
-        positions.forEach((position) => {
-          const group = data.filter((c) => c.position === position);
-          const section = document.createElement("div");
-          section.innerHTML = `<h3>${position}</h3><table><tr><th>Name</th><th>Actions</th></tr></table>`;
-          const table = section.querySelector("table");
-          group.forEach((candidate) => {
-            const row = table.insertRow();
-            row.innerHTML = `<td>${candidate.name}</td>
-        <td><button onclick="removeCandidate(${candidate.id})">Remove</button></td>`;
+      <script>
+        async function loadUsers() {
+          const response = await fetch("/api/users");
+          const users = await response.json();
+          const tbody = document.querySelector("#votersTable tbody");
+          tbody.innerHTML = "";
+          users.forEach((user) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${user.username}</td>
+              <td><input type="text" value="${user.fullname}" id="fullname-${user.id}"></td>
+              <td><input type="text" value="${user.address}" id="address-${user.id}"></td>
+              <td>
+                <select id="gender-${user.id}">
+                  <option value="Male" ${user.gender === "Male" ? "selected" : ""}>Male</option>
+                  <option value="Female" ${user.gender === "Female" ? "selected" : ""}>Female</option>
+                  <option value="Other" ${user.gender === "Other" ? "selected" : ""}>Other</option>
+                </select>
+              </td>
+              <td>
+                <button class="action-btn btn-update" onclick="updateUser(${user.id})">Update</button>
+                <button class="action-btn btn-delete" onclick="deleteUser(${user.id})">Delete</button>
+              </td>
+            `;
+            tbody.appendChild(tr);
           });
-          container.appendChild(section);
-        });
-      }
-      async function promptAddCandidate() {
-        const name = prompt("Enter candidate's name:");
-        const position = prompt(
-          "Enter position (President, Vice President, Senator, etc):",
-        );
-
-        if (name && position) {
-          try {
-            const response = await fetch("/api/candidates", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ name, position }),
-            });
-
-            if (response.ok) {
-              alert("Candidate added successfully!");
-              loadCandidates();
-            } else {
-              const error = await response.text();
-              console.error("Server error:", error);
-              alert("Failed to add candidate.");
-            }
-          } catch (error) {
-            console.error("Fetch error:", error);
-            alert("Error connecting to server.");
-          }
-        } else {
-          alert("Name and position are required.");
         }
-      }
-      async function removeCandidate(id) {
-        if (confirm("Remove this candidate?")) {
-          await fetch(`/api/candidates/${id}`, {
-            method: "DELETE",
-          });
-          loadCandidates();
-        }
-      }
 
-      // --- ADMIN SETTINGS (DEMO ONLY) ---
-      async function updateAdminInfo() {
-        const name = document.getElementById("adminName").value;
-        const email = document.getElementById("adminEmail").value;
-        try {
-          const response = await fetch("/api/admin", {
+        async function updateUser(id) {
+          const fullname = document.getElementById(`fullname-${id}`).value;
+          const address = document.getElementById(`address-${id}`).value;
+          const gender = document.getElementById(`gender-${id}`).value;
+
+          const response = await fetch(`/api/users/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email }),
+            body: JSON.stringify({ fullname, address, gender }),
           });
-          if (response.ok) {
-            alert("Admin info updated successfully.");
-          } else {
-            alert("Failed to update admin info.");
-          }
-        } catch (err) {
-          alert("Error updating admin info.");
-        }
-      }
 
-      // --- LOGOUT ---
-      function logout() {
-        if (confirm("Are you sure you want to logout?")) {
-          window.location.href = "/admin/login";
+          if (response.ok) {
+            alert("User updated!");
+            loadUsers();
+          } else {
+            alert("Failed to update user.");
+          }
         }
-      }
-    </script>
+
+        async function deleteUser(id) {
+          if (!confirm("Delete this user?")) return;
+
+          const response = await fetch(`/api/users/${id}`, {
+            method: "DELETE",
+          });
+
+          if (response.ok) {
+            alert("User deleted!");
+            loadUsers();
+          } else {
+            alert("Failed to delete user.");
+          }
+        }
+      </script>
+
+      <div id="candidates" class="page">
+        <div class="page-header">
+          <h2>Manage Candidates</h2>
+          <p>Add, view, or remove candidates for each position</p>
+        </div>
+        <div id="candidatesContainer"></div>
+        <button class="btn-add" onclick="promptAddCandidate()">➕ Add Candidate</button>
+      </div>
+
+      <div id="settings" class="page">
+        <div class="page-header">
+          <h2>Admin Settings</h2>
+          <p>Update your admin account information</p>
+        </div>
+        <div class="panel">
+          <form class="settings-form"
+            onsubmit="updateAdminInfo(); return false;">
+            <div class="form-group">
+              <label for="adminName">Admin Name</label>
+              <input
+                type="text"
+                id="adminName"
+                name="adminName"
+                value="Admin"
+              />
+            </div>
+            <div class="form-group">
+              <label for="adminEmail">Email Address</label>
+              <input
+                type="email"
+                id="adminEmail"
+                name="adminEmail"
+                value="admin@example.com"
+              />
+            </div>
+            <button type="submit" class="btn-save">💾 Update Information</button>
+          </form>
+        </div>
+      </div>
+
+      <script>
+        function showPage(pageId) {
+          document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
+          document.getElementById(pageId).classList.add("active");
+
+          // Update nav active state
+          document.querySelectorAll(".nav-links button").forEach(btn => btn.classList.remove("nav-active"));
+          const navBtn = document.getElementById("nav-" + pageId);
+          if (navBtn) navBtn.classList.add("nav-active");
+
+          if (pageId === "voters") loadUsers();
+          if (pageId === "candidates") loadCandidates();
+        }
+
+        // --- CANDIDATE MANAGEMENT ---
+        async function loadCandidates() {
+          const response = await fetch("/api/candidates");
+          const data = await response.json();
+          const container = document.getElementById("candidatesContainer");
+          container.innerHTML = "";
+          const positions = [...new Set(data.map((c) => c.position))];
+          positions.forEach((position) => {
+            const group = data.filter((c) => c.position === position);
+            const panel = document.createElement("div");
+            panel.className = "panel";
+            let html = `<h3>${position}</h3><table><tr><th>Name</th><th>Actions</th></tr>`;
+            group.forEach((candidate) => {
+              html += `<tr><td>${candidate.name}</td>
+                <td><button class="action-btn btn-remove" onclick="removeCandidate(${candidate.id})">Remove</button></td></tr>`;
+            });
+            html += `</table>`;
+            panel.innerHTML = html;
+            container.appendChild(panel);
+          });
+        }
+
+        async function promptAddCandidate() {
+          const name = prompt("Enter candidate's name:");
+          const position = prompt(
+            "Enter position (President, Vice President, Senator, etc):",
+          );
+
+          if (name && position) {
+            try {
+              const response = await fetch("/api/candidates", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, position }),
+              });
+
+              if (response.ok) {
+                alert("Candidate added successfully!");
+                loadCandidates();
+              } else {
+                const error = await response.text();
+                console.error("Server error:", error);
+                alert("Failed to add candidate.");
+              }
+            } catch (error) {
+              console.error("Fetch error:", error);
+              alert("Error connecting to server.");
+            }
+          } else {
+            alert("Name and position are required.");
+          }
+        }
+
+        async function removeCandidate(id) {
+          if (confirm("Remove this candidate?")) {
+            await fetch(`/api/candidates/${id}`, {
+              method: "DELETE",
+            });
+            loadCandidates();
+          }
+        }
+
+        // --- ADMIN SETTINGS ---
+        async function updateAdminInfo() {
+          const name = document.getElementById("adminName").value;
+          const email = document.getElementById("adminEmail").value;
+          try {
+            const response = await fetch("/api/admin", {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name, email }),
+            });
+            if (response.ok) {
+              alert("Admin info updated successfully.");
+            } else {
+              alert("Failed to update admin info.");
+            }
+          } catch (err) {
+            alert("Error updating admin info.");
+          }
+        }
+
+        // --- LOGOUT ---
+        function logout() {
+          if (confirm("Are you sure you want to logout?")) {
+            window.location.href = "/admin/login";
+          }
+        }
+      </script>
+    </div>
   </body>
 </html>
