@@ -12,7 +12,7 @@ const ROOT_DIR = __dirname;
 app.use(cors());
 app.use(express.json());
 
-["AdminDashboard", "Homepage", "Landing", "Login"].forEach((folder) => {
+["AdminDashboard", "Homepage", "Login"].forEach((folder) => {
   app.use(`/${folder}`, express.static(path.join(ROOT_DIR, folder)));
 });
 
@@ -23,7 +23,9 @@ function sendPage(relativePath) {
 }
 
 app.get("/", sendPage("index.html"));
-app.get("/landing", sendPage(path.join("Landing", "Landing.html")));
+app.get("/landing", (req, res) => {
+  res.redirect("/");
+});
 app.get("/login", sendPage(path.join("Login", "login.html")));
 app.get("/admin/login", sendPage(path.join("Login", "admin-login.html")));
 app.get("/home", sendPage(path.join("Homepage", "homepage.html")));

@@ -3,104 +3,257 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Voting System</title>
+    <title>DAPAT TAMA Voting System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      :root {
-        --bg: #0f1f3b;
-        --bg-soft: #17345f;
-        --card: #f4f8ff;
-        --text: #132444;
-        --accent: #2a7fff;
-        --accent-2: #1d4db3;
-      }
-
       * {
+        margin: 0;
+        padding: 0;
         box-sizing: border-box;
       }
 
       body {
-        margin: 0;
+        font-family: "Lato", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
-        font-family: "Segoe UI", Arial, sans-serif;
-        background: radial-gradient(circle at top right, #2a7fff, var(--bg));
-        color: #fff;
         display: grid;
         place-items: center;
         padding: 20px;
+        color: #fff;
       }
 
-      .card {
-        width: min(680px, 100%);
-        background: linear-gradient(160deg, #ffffff, var(--card));
-        color: var(--text);
+      .wrapper {
+        width: 100%;
+        max-width: 900px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 50px;
+        animation: slideDown 0.8s ease-out;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .logo {
+        width: 70px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.95);
         border-radius: 18px;
-        padding: 28px;
-        box-shadow: 0 24px 60px rgba(9, 25, 58, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .logo-text h2 {
+        font-family: "Poppins", sans-serif;
+        color: #fff;
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: 1px;
       }
 
       h1 {
-        margin-top: 0;
-        margin-bottom: 8px;
-        font-size: 2rem;
+        font-family: "Poppins", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
       }
 
-      p {
-        margin: 0 0 20px;
-        line-height: 1.5;
-        color: #3c5278;
+      .tagline {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 45px 35px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        animation: slideUp 0.8s ease-out;
+      }
+
+      .card h2 {
+        font-family: "Poppins", sans-serif;
+        color: #333;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        margin-top: 0;
+      }
+
+      .card p {
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 30px;
       }
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 12px;
-        margin-top: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
       }
 
       a.btn {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         text-decoration: none;
-        text-align: center;
-        font-weight: 700;
-        padding: 12px 14px;
-        border-radius: 10px;
-        background: var(--accent);
+        font-weight: 600;
+        padding: 15px 20px;
+        border-radius: 12px;
+        font-family: "Poppins", sans-serif;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+      }
+
+      a.btn.primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #fff;
-        transition:
-          transform 0.15s ease,
-          background 0.15s ease;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
       }
 
-      a.btn:hover {
-        transform: translateY(-2px);
-        background: var(--accent-2);
+      a.btn.primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
       }
 
-      .secondary {
-        background: #e7eefc;
-        color: #1a3568;
+      a.btn.secondary {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(245, 87, 108, 0.2);
       }
 
-      .secondary:hover {
-        background: #d8e6ff;
+      a.btn.secondary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(245, 87, 108, 0.3);
+      }
+
+      .divider {
+        text-align: center;
+        margin: 25px 0;
+        color: #ddd;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+      }
+
+      .secondary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 25px;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 40px;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 0.9rem;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        .card {
+          padding: 30px 20px;
+        }
+
+        .card h2 {
+          font-size: 1.6rem;
+        }
+
+        .logo-container {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .grid,
+        .secondary-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
-    <main class="card">
-      <h1>Voting System</h1>
-      <p>
-        This is the single entry point of the project. Use the links below to
-        open each page and module from one place.
-      </p>
+    <div class="wrapper">
+      <header>
+        <div class="logo-container">
+          <div class="logo">✓</div>
+          <div class="logo-text">
+            <h2>DAPAT TAMA</h2>
+          </div>
+        </div>
+        <h1>Voting System</h1>
+        <p class="tagline">Secure • Transparent • Democratic</p>
+      </header>
 
-      <div class="grid">
-        <a class="btn" href="/landing">Landing Page</a>
-        <a class="btn" href="/login">User Login</a>
-        <a class="btn" href="/admin/login">Admin Login</a>
-        <a class="btn secondary" href="/home">User Homepage</a>
-        <a class="btn secondary" href="/admin/dashboard">Admin Dashboard</a>
-      </div>
-    </main>
+      <main class="card">
+        <h2>Welcome to DAPAT TAMA</h2>
+        <p>
+          Your trusted platform for secure, transparent, and democratic voting.
+          Select your role below to proceed to your portal.
+        </p>
+
+        <div class="grid">
+          <a class="btn primary" href="/login">🗳️ Vote</a>
+          <a class="btn primary" href="/home">📋 User Portal</a>
+          <a class="btn secondary" href="/admin/login">🔐 Admin Login</a>
+          <a class="btn secondary" href="/admin/dashboard">📊 Dashboard</a>
+        </div>
+        <div class="divider">━━━━━━━━━━━━━━</div>
+
+        <p style="text-align: center; color: #999; font-size: 0.95rem">
+          Need help? Contact system support for assistance.
+        </p>
+      </main>
+
+      <footer>
+        <p>DAPAT TAMA © 2026 | Secure Election Management System</p>
+      </footer>
+    </div>
   </body>
 </html>
