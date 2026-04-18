@@ -15,21 +15,7 @@ const dbConfig = {
   database: "prynceindiv",
 };
 
-// Get all candidates
-app.get("/api/candidates", async (req, res) => {
-  try {
-    const conn = await mysql.createConnection(dbConfig);
-    const [rows] = await conn.execute("SELECT * FROM candidates");
-    await conn.end();
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Database error!" });
-  }
-});
-
-// Add candidate
-// POST /api/vote
+// Cast a vote
 app.post("/api/vote", async (req, res) => {
   const { votes } = req.body; // votes: [{candidateId, position}]
   try {
@@ -48,20 +34,25 @@ app.post("/api/vote", async (req, res) => {
   }
 });
 
-// Delete candidate
-app.delete("/api/candidates/:id", async (req, res) => {
-  const { id } = req.params;
+// Get results
+app.get("/api/results", async (req, res) => {
   try {
     const conn = await mysql.createConnection(dbConfig);
-    await conn.execute("DELETE FROM candidates WHERE id = ?", [id]);
+    const [rows] = await conn.execute(`
+            SELECT c.position, c.name, COUNT(v.id) as votes
+            FROM candidates c
+            LEFT JOIN votes v ON c.id = v.candidate_id
+            GROUP BY c.id
+            ORDER BY c.position, votes DESC
+        `);
     await conn.end();
-    res.json({ message: "Candidate deleted!" });
+    res.json(rows);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Database error!" });
   }
 });
 
-app.listen(3002, () => {
-  console.log("Candidate server running on http://127.0.0.1:3002");
+app.listen(3003, () => {
+  console.log("Voting server running on http://127.0.0.1:3003");
 });

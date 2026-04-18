@@ -1,117 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to PrynceIndiv</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voting System</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(120deg, #4f8cff, #a6e1fa);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            background: #fff;
-            padding: 3rem 2rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-        h1 {
-            margin-bottom: 1rem;
-            color: #4f8cff;
-        }
-        p {
-            color: #333;
-            margin-bottom: 2rem;
-        }
-        .cta-btn {
-            background: #4f8cff;
-            color: #fff;
-            padding: 0.75rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .cta-btn:hover {
-            background: #356ac3;
-        }
+      :root {
+        --bg: #0f1f3b;
+        --bg-soft: #17345f;
+        --card: #f4f8ff;
+        --text: #132444;
+        --accent: #2a7fff;
+        --accent-2: #1d4db3;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: radial-gradient(circle at top right, #2a7fff, var(--bg));
+        color: #fff;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+      }
+
+      .card {
+        width: min(680px, 100%);
+        background: linear-gradient(160deg, #ffffff, var(--card));
+        color: var(--text);
+        border-radius: 18px;
+        padding: 28px;
+        box-shadow: 0 24px 60px rgba(9, 25, 58, 0.45);
+      }
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-size: 2rem;
+      }
+
+      p {
+        margin: 0 0 20px;
+        line-height: 1.5;
+        color: #3c5278;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      a.btn {
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        font-weight: 700;
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: var(--accent);
+        color: #fff;
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease;
+      }
+
+      a.btn:hover {
+        transform: translateY(-2px);
+        background: var(--accent-2);
+      }
+
+      .secondary {
+        background: #e7eefc;
+        color: #1a3568;
+      }
+
+      .secondary:hover {
+        background: #d8e6ff;
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <header style="margin-bottom: 2rem;">
-            <img src="Logo.jpg" alt="Logo" style="width:60px;height:60px;border-radius:50%;box-shadow:0 2px 8px rgba(79,140,255,0.2);margin-bottom:1rem;">
-            <h1 style="margin:0;color:#4f8cff;font-size:2rem;letter-spacing:1px;">Welcome to Voting System</h1>
-            <p style="margin:0.5rem 0 0;color:#5a6b7b;font-size:1.05rem;">Empowering your voice, shaping our future</p>
-        
-        
-        <div id="quote-slider" style="min-height: 70px;">
-            <blockquote class="quote-slide active">
-                "Smart decisions today, a better tomorrow."
-            </blockquote>
-            <blockquote class="quote-slide">
-                "A single vote can spark a wave of change."
-            </blockquote>
-            <blockquote class="quote-slide">
-                "Your vote is your power—use it responsibly."
-            </blockquote>
-            <blockquote class="quote-slide">
-                "Shape your destiny—vote with purpose and care."
-            <blockquote class="quote-slide">
-                "Vote wisely and smart—your choice shapes the future"
-            <blockquote class="quote-slide">
-                "Every vote is a voice—make yours count.."
-            </blockquote>
-        </div>
-        <a href="login.html"><button class="cta-btn"> User </button></a>
-        <a href="admin-login.html"><button class="cta-btn" style="background:#2d3a4a;margin-top:1rem;">Admin </button></a>
-    </div>
-    <style>
-        #quote-slider {
-            position: relative;
-            overflow: hidden;
-        }
-        .quote-slide {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            opacity: 0;
-            transform: translateX(40px);
-            transition: opacity 0.6s, transform 0.6s;
-            font-size: 1.3rem;
-            font-style: italic;
-            color: #2d3a4a;
-            border-left: 4px solid #4f8cff;
-            margin: 1.5em 0;
-            padding: 0.5em 1em;
-            background: #f4f8fb;
-            box-sizing: border-box;
-        }
-        .quote-slide.active {
-            opacity: 1;
-            transform: translateX(0);
-            position: relative;
-        }
-    </style>
-    <script>
-        const quotes = document.querySelectorAll('.quote-slide');
-        let current = 0;
-        setInterval(() => {
-            quotes[current].classList.remove('active');
-            current = (current + 1) % quotes.length;
-            quotes[current].classList.add('active');
-        }, 3000);
-    </script>
-</body>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Voting System</h1>
+      <p>
+        This is the single entry point of the project. Use the links below to
+        open each page and module from one place.
+      </p>
+
+      <div class="grid">
+        <a class="btn" href="/landing">Landing Page</a>
+        <a class="btn" href="/login">User Login</a>
+        <a class="btn" href="/admin/login">Admin Login</a>
+        <a class="btn secondary" href="/home">User Homepage</a>
+        <a class="btn secondary" href="/admin/dashboard">Admin Dashboard</a>
+      </div>
+    </main>
+  </body>
 </html>
